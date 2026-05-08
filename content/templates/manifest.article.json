@@ -1,0 +1,17 @@
+{
+  "schema_version": "hakumei-content-v0.1",
+  "type": "h-article",
+  "slug": "example-article-slug",
+  "title": "記事タイトル",
+  "summary": "記事概要",
+  "status": "draft",
+  "author": "author-name",
+  "created_at": "2026-05-08",
+  "updated_at": "2026-05-08",
+  "published_at": null,
+  "language": "ja",
+  "tags": [],
+  "content": "article.md",
+  "assets_dir": "assets",
+  "thumbnail": null
+}

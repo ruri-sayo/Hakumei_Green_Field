@@ -1,0 +1,18 @@
+{
+  "schema_version": "hakumei-content-v0.1",
+  "type": "novel-series",
+  "slug": "example-series-slug",
+  "title": "作品タイトル",
+  "summary": "作品概要",
+  "status": "active",
+  "author": "author-name",
+  "created_at": "2026-05-08",
+  "updated_at": "2026-05-08",
+  "language": "ja",
+  "tags": [],
+  "thumbnail": null,
+  "series": {
+    "display_order": "episode_number",
+    "default_view": "episode_list"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "hakumei-content-v0.1",
+  "type": "tool",
+  "slug": "example-tool-slug",
+  "title": "ツールタイトル",
+  "summary": "ツール概要",
+  "status": "draft",
+  "author": "author-name",
+  "created_at": "2026-05-08",
+  "updated_at": "2026-05-08",
+  "published_at": null,
+  "language": "ja",
+  "tags": [],
+  "entry": "index.html",
+  "assets_dir": "assets",
+  "thumbnail": null,
+  "app": {
+    "runtime": "static-web",
+    "source_kind": "vanilla-html",
+    "requires_network": false,
+    "uses_local_storage": false
+  }
+}
