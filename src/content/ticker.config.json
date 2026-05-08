@@ -1,0 +1,44 @@
+{
+  "speedSeconds": 36,
+  "items": [
+    {
+      "label": {
+        "japanese": "INFO",
+        "edo": "知らせ",
+        "heian": "告げ"
+      },
+      "text": {
+        "japanese": "薄明GreenField v0 のサイト骨格を準備中です。",
+        "edo": "薄明緑場瓦版 v0 の骨組みを仕立て中でござる。",
+        "heian": "薄明緑場日記 v0 のかたちを整へつつあり。"
+      },
+      "color": "#87bcff"
+    },
+    {
+      "label": {
+        "japanese": "UPDATE",
+        "edo": "改め",
+        "heian": "改め"
+      },
+      "text": {
+        "japanese": "Human Article と System Article の入口を作成しました。",
+        "edo": "人の読み物と仕組みの読み物、その入口を設け申した。",
+        "heian": "人の文と仕組みの文、その入口を置きたり。"
+      },
+      "color": "#74e5ac"
+    },
+    {
+      "label": {
+        "japanese": "NOTICE",
+        "edo": "触れ",
+        "heian": "知らせ"
+      },
+      "text": {
+        "japanese": "Novel は現在 coming soon として扱っています。",
+        "edo": "草紙はいましばらく支度中にて候。",
+        "heian": "物語はいましばし支度中にて置くものなり。"
+      },
+      "color": "#ffb26b"
+    }
+  ]
+}

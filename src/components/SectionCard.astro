@@ -1,0 +1,223 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  eyebrow: string;
+  description: string;
+  titleKey?: string;
+  eyebrowKey?: string;
+  descriptionKey?: string;
+  href: string;
+  tone: string;
+  icon: string;
+  imageSrc?: string;
+  comingSoon?: boolean;
+}
+
+const {
+  title,
+  eyebrow,
+  description,
+  titleKey,
+  eyebrowKey,
+  descriptionKey,
+  href,
+  tone,
+  icon,
+  imageSrc,
+  comingSoon = false,
+} = Astro.props;
+---
+
+<a class:list={['section-card', `tone-${tone}`, { 'is-muted': comingSoon }]} href={href}>
+  <div class="visual" aria-hidden="true">
+    {imageSrc ? <img src={imageSrc} alt="" loading="lazy" /> : <span data-i18n={titleKey}>{title}</span>}
+  </div>
+  <div class="card-body">
+    <div class="title-row">
+      <span class="icon-wrap"><Icon name={icon} size={22} /></span>
+      <div>
+        <p data-i18n={eyebrowKey}>{eyebrow}</p>
+        <h3 data-i18n={titleKey}>{title}</h3>
+      </div>
+    </div>
+    <p class="description" data-i18n={descriptionKey}>{description}</p>
+    {comingSoon && <span class="coming-soon" data-i18n="common.comingSoon">Coming Soon</span>}
+  </div>
+  {!comingSoon && <span class="go"><Icon name="chevron" size={18} /></span>}
+</a>
+
+<style>
+  .section-card {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    min-height: 330px;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    box-shadow: 0 10px 28px rgba(31, 41, 55, 0.06);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .section-card:hover {
+    border-color: rgba(39, 64, 121, 0.35);
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+  }
+
+  .section-card.is-muted {
+    color: #7b8798;
+  }
+
+  .visual {
+    display: grid;
+    overflow: hidden;
+    min-height: 148px;
+    place-items: center;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.16)),
+      var(--card-bg);
+    color: var(--card-ink);
+    font-weight: 900;
+  }
+
+  .visual span {
+    opacity: 0.7;
+    font-size: clamp(1.5rem, 7vw, 2.65rem);
+  }
+
+  .visual img {
+    width: 100%;
+    height: 148px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 760px) {
+    .section-card {
+      min-height: 0;
+    }
+
+    .visual {
+      min-height: clamp(150px, 45vw, 220px);
+    }
+
+    .visual img {
+      height: clamp(150px, 45vw, 220px);
+    }
+  }
+
+  .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .icon-wrap {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--icon-bg);
+    color: var(--card-ink);
+  }
+
+  p,
+  h3 {
+    margin: 0;
+  }
+
+  .title-row p {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    color: #223049;
+    font-size: 1.18rem;
+    line-height: 1.2;
+  }
+
+  .description {
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  .go {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--site-blue);
+    color: #fff;
+    opacity: 0;
+    transform: translateX(6px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .section-card:hover .go {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .tone-blue {
+    --card-bg: #dbeafe;
+    --card-ink: #1d4ed8;
+    --icon-bg: #eff6ff;
+  }
+
+  .tone-green {
+    --card-bg: #d1fae5;
+    --card-ink: #047857;
+    --icon-bg: #ecfdf5;
+  }
+
+  .tone-orange {
+    --card-bg: #fed7aa;
+    --card-ink: #c2410c;
+    --icon-bg: #fff7ed;
+  }
+
+  .tone-violet {
+    --card-bg: #ede9fe;
+    --card-ink: #6d28d9;
+    --icon-bg: #f5f3ff;
+  }
+
+  .tone-muted {
+    --card-bg: #e2e8f0;
+    --card-ink: #64748b;
+    --icon-bg: #f1f5f9;
+  }
+
+  .tone-teal {
+    --card-bg: #ccfbf1;
+    --card-ink: #0f766e;
+    --icon-bg: #f0fdfa;
+  }
+</style>

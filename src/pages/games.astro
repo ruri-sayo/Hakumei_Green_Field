@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { pageSummaries } from '../content/site';
+import { t } from '../content/i18n';
+---
+
+<BaseLayout title="Games">
+  <main class="main">
+    <PageHeader {...pageSummaries.games} />
+    <section class="placeholder-panel">
+      <h2 data-i18n="panel.games.title">{t('panel.games.title')}</h2>
+      <p data-i18n="panel.games.description">{t('panel.games.description')}</p>
+    </section>
+  </main>
+</BaseLayout>

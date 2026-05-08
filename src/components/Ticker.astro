@@ -1,0 +1,64 @@
+---
+import { tickerItems, tickerSpeedSeconds } from '../content/site';
+---
+
+<div class="ticker" aria-label="Announcements">
+  <div class="ticker-track">
+    <div class="ticker-line" style={`--ticker-speed: ${tickerSpeedSeconds}s`}>
+      {[...tickerItems, ...tickerItems].map((item) => (
+        <span class="ticker-item" style={`--ticker-color: ${item.color}`}>
+          <strong data-i18n-values={JSON.stringify(item.label)}>{item.label.japanese}</strong>
+          <span data-i18n-values={JSON.stringify(item.text)}>{item.text.japanese}</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .ticker {
+    overflow: hidden;
+    border-block: 1px solid rgba(39, 64, 121, 0.55);
+    background: #101827;
+    color: #d7e5ff;
+    padding: 9px 0;
+  }
+
+  .ticker-track {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ticker-line {
+    display: inline-flex;
+    min-width: max-content;
+    gap: 72px;
+    white-space: nowrap;
+    animation: ticker var(--ticker-speed) linear infinite;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-size: 0.86rem;
+    letter-spacing: 0;
+  }
+
+  .ticker-line:hover {
+    animation-play-state: paused;
+  }
+
+  .ticker-item {
+    color: var(--ticker-color, #d7e5ff);
+  }
+
+  .ticker-line strong {
+    margin-right: 9px;
+  }
+
+  @keyframes ticker {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

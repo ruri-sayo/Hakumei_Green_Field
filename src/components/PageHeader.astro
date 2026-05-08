@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  lead: string;
+  titleKey?: string;
+  leadKey?: string;
+  kicker?: string;
+}
+
+const { title, lead, titleKey, leadKey, kicker = 'Hakumei GreenField' } = Astro.props;
+---
+
+<section class="page-hero">
+  <p class="page-kicker">{kicker}</p>
+  <h1 class="page-title" data-i18n={titleKey}>{title}</h1>
+  <p class="page-lead" data-i18n={leadKey}>{lead}</p>
+</section>

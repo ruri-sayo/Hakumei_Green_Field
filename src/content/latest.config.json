@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "title": {
+        "japanese": "薄明GreenField v0.1 リリース準備のお知らせ",
+        "edo": "薄明緑場瓦版 v0.1 支度の知らせ",
+        "heian": "薄明緑場日記 v0.1 支度の便り"
+      },
+      "date": "2026.04.20",
+      "category": "News",
+      "href": "/about/"
+    },
+    {
+      "title": {
+        "japanese": "Human Article: 人が書いた記事の置き場を準備中",
+        "edo": "人の読み物: 手ずから記す場を支度中",
+        "heian": "人の文: 人の手にて書く場を整へ中"
+      },
+      "date": "2026.04.18",
+      "category": "Human",
+      "href": "/articles/h/"
+    },
+    {
+      "title": {
+        "japanese": "System Article: 自動生成記事の置き場を準備中",
+        "edo": "仕組みの読み物: 自ずと成る記事の場を支度中",
+        "heian": "仕組みの文: 自ずから成る文の場を整へ中"
+      },
+      "date": "2026.04.15",
+      "category": "System",
+      "href": "/articles/s/"
+    }
+  ]
+}

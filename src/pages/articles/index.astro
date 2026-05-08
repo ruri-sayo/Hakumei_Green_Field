@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { pageSummaries } from '../../content/site';
+import { t } from '../../content/i18n';
+---
+
+<BaseLayout title="Article">
+  <main class="main">
+    <PageHeader {...pageSummaries.articles} />
+    <div class="placeholder-grid">
+      <a class="link-panel" href="/articles/h/">
+        <h2 data-i18n="section.human.title">{t('section.human.title')}</h2>
+        <p data-i18n="panel.articles.human.description">{t('panel.articles.human.description')}</p>
+      </a>
+      <a class="link-panel" href="/articles/s/">
+        <h2 data-i18n="section.system.title">{t('section.system.title')}</h2>
+        <p data-i18n="panel.articles.system.description">{t('panel.articles.system.description')}</p>
+      </a>
+    </div>
+  </main>
+</BaseLayout>

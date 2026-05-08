@@ -1,0 +1,306 @@
+---
+import Icon from './Icon.astro';
+import { navLinks, site } from '../content/site';
+import { defaultLanguage, languages, translations } from '../content/i18n';
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label={`${site.name} home`}>
+      <img class="brand-logo" src="/assets/logo_new.png" alt="" aria-hidden="true" />
+      <span class="brand-text" data-i18n="site.brandText">{site.name}</span>
+    </a>
+
+    <div class="language-switcher desktop-language-switcher" aria-label="Language switcher">
+      {languages.map((language) => (
+        <button
+          class:list={['language-button', { 'is-active': language.code === defaultLanguage }]}
+          type="button"
+          data-language={language.code}
+          aria-pressed={language.code === defaultLanguage ? 'true' : 'false'}
+        >
+          {language.label}
+        </button>
+      ))}
+    </div>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {navLinks.map((link) => <a href={link.href} data-i18n={link.key}>{link.label}</a>)}
+      <button class="icon-button" type="button" aria-label="Settings placeholder">
+        <Icon name="settings" size={20} />
+      </button>
+    </nav>
+
+    <button class="mobile-menu-button" type="button" aria-label="Open menu" aria-controls="mobile-nav">
+      <Icon name="menu" size={26} />
+    </button>
+  </div>
+
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+    <div class="language-switcher mobile-language-switcher" aria-label="Language switcher">
+      {languages.map((language) => (
+        <button
+          class:list={['language-button', { 'is-active': language.code === defaultLanguage }]}
+          type="button"
+          data-language={language.code}
+          aria-pressed={language.code === defaultLanguage ? 'true' : 'false'}
+        >
+          {language.label}
+        </button>
+      ))}
+    </div>
+    {navLinks.map((link) => <a href={link.href} data-i18n={link.key}>{link.label}</a>)}
+  </nav>
+</header>
+
+<script define:vars={{ translations, defaultLanguage }}>
+  const storageKey = 'hakumei-language';
+
+  const applyLanguage = (language) => {
+    const activeLanguage = translations[language] ? language : defaultLanguage;
+    const dictionary = translations[activeLanguage] ?? translations[defaultLanguage];
+    const languageButtons = [...document.querySelectorAll('[data-language]')];
+    const translatableElements = [...document.querySelectorAll('[data-i18n], [data-i18n-values]')];
+
+    document.documentElement.lang = activeLanguage === 'japanese' ? 'ja' : `ja-${activeLanguage}`;
+
+    translatableElements.forEach((element) => {
+      const key = element.dataset.i18n;
+      const values = element.dataset.i18nValues;
+
+      if (values) {
+        const dictionaryValues = JSON.parse(values);
+        const value = dictionaryValues[activeLanguage] ?? dictionaryValues[defaultLanguage];
+
+        if (value) {
+          element.textContent = value;
+          return;
+        }
+      }
+
+      if (key && dictionary[key]) {
+        element.textContent = dictionary[key];
+      }
+    });
+
+    languageButtons.forEach((languageButton) => {
+      const isActive = languageButton.dataset.language === activeLanguage;
+      languageButton.classList.toggle('is-active', isActive);
+      languageButton.setAttribute('aria-pressed', String(isActive));
+    });
+
+    localStorage.setItem(storageKey, activeLanguage);
+  };
+
+  const initLanguageControls = () => {
+    const button = document.querySelector('.mobile-menu-button');
+    const nav = document.querySelector('.mobile-nav');
+    const languageButtons = [...document.querySelectorAll('[data-language]')];
+
+    button?.addEventListener('click', () => {
+      nav?.classList.toggle('is-open');
+    });
+
+    languageButtons.forEach((languageButton) => {
+      languageButton.addEventListener('click', () => {
+        applyLanguage(languageButton.dataset.language);
+      });
+    });
+
+    const savedLanguage = localStorage.getItem(storageKey);
+    applyLanguage(savedLanguage);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageControls);
+  } else {
+    initLanguageControls();
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--site-blue);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(22, 32, 55, 0.18);
+  }
+
+  .header-inner {
+    display: flex;
+    width: min(1120px, calc(100% - 32px));
+    height: 64px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 22px;
+    margin: 0 auto;
+  }
+
+  .brand {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+  }
+
+  .brand-logo {
+    width: auto;
+    height: 44px;
+    object-fit: contain;
+  }
+
+  .brand-text {
+    color: #fff;
+    font-size: 1.04rem;
+    font-weight: 900;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .language-switcher {
+    display: inline-flex;
+    flex: 0 0 auto;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 8px;
+  }
+
+  .language-button {
+    min-width: 52px;
+    border: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.78);
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .language-button:last-child {
+    border-right: 0;
+  }
+
+  .language-button:hover,
+  .language-button.is-active {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+  }
+
+  .desktop-nav {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 22px;
+  }
+
+  .desktop-nav a {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+
+  .desktop-nav a:hover {
+    color: #d9e8ff;
+  }
+
+  .icon-button,
+  .mobile-menu-button {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .icon-button:hover,
+  .mobile-menu-button:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .mobile-menu-button,
+  .mobile-nav {
+    display: none;
+  }
+
+  .mobile-language-switcher {
+    display: none;
+  }
+
+  .mobile-nav {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--site-blue-dark);
+    padding: 6px 16px;
+  }
+
+  .mobile-nav a {
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+  }
+
+  .mobile-nav a:last-child {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 780px) {
+    .header-inner {
+      width: min(100% - 24px, 1120px);
+      gap: 10px;
+    }
+
+    .desktop-language-switcher,
+    .desktop-nav {
+      display: none;
+    }
+
+    .brand {
+      margin-right: auto;
+    }
+
+    .brand-logo {
+      height: 34px;
+      max-width: 58px;
+    }
+
+    .brand-text {
+      max-width: calc(100vw - 140px);
+      overflow: hidden;
+      font-size: 0.92rem;
+      text-overflow: ellipsis;
+    }
+
+    .mobile-menu-button {
+      display: grid;
+    }
+
+    .mobile-nav.is-open {
+      display: block;
+    }
+
+    .mobile-language-switcher {
+      display: inline-flex;
+      width: 100%;
+      margin: 8px 0;
+    }
+
+    .mobile-language-switcher .language-button {
+      flex: 1;
+      min-width: 0;
+      padding: 9px 7px;
+      font-size: 0.78rem;
+    }
+  }
+</style>

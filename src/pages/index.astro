@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Ticker from '../components/Ticker.astro';
+import Hero from '../components/Hero.astro';
+import SectionGrid from '../components/SectionGrid.astro';
+import { site } from '../content/site';
+---
+
+<BaseLayout title="Home" description={site.description}>
+  <Ticker />
+  <main class="main">
+    <Hero />
+    <SectionGrid />
+  </main>
+</BaseLayout>
